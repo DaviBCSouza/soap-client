@@ -1,6 +1,5 @@
 package br.ubs.client;
 
-
 import br.cbo.soap.CboManagerImpService;
 import br.cbo.soap.CboService;
 import br.fuso.soap.FusoHorarioImplService;
@@ -239,5 +238,76 @@ public class SOAPClientUBS {
     }
 
     private static void menuCBO(CboService cbo, Scanner scanner) {
+        String option;
+        do {
+            System.out.println("\n----------------------MENU CBO-------------------------");
+            System.out.println("1 - Listar todos os CBOs");
+            System.out.println("2 - Buscar CBO por código");
+            System.out.println("3 - Adicionar/Atualizar CBO");
+            System.out.println("4 - Remover CBO");
+            System.out.println("0 - VOLTAR");
+            System.out.println("---------------------------------------------------");
+            System.out.print("Escolha uma opção: ");
+
+            option = scanner.nextLine().trim();
+
+            switch (option) {
+                case "1":
+                    System.out.println("\nLista de CBOs:");
+                    for (int i = 0; i < cbo.getListCbo().size(); i++) {
+                        System.out.println(i + " - Código: " + cbo.getListCbo().get(i).getCodCbo() +
+                                " | Profissão: " + cbo.getListCbo().get(i).getProfissao());
+                    }
+                    break;
+
+                case "2":
+                    System.out.print("\nDigite o código CBO para buscar: ");
+                    String codBusca = scanner.nextLine();
+                    String profissao = cbo.getCbo(codBusca).getProfissao();
+                    if (profissao != null && !profissao.isEmpty()) {
+                        System.out.println("CBO encontrado:");
+                        System.out.println("Código: " + codBusca + " | Profissão: " + profissao);
+                    } else {
+                        System.out.println("CBO não encontrado para o código: " + codBusca);
+                    }
+                    break;
+
+                case "3":
+                    System.out.print("\nDigite o código CBO: ");
+                    String codCbo = scanner.nextLine();
+                    System.out.print("Digite a profissão: ");
+                    String novaProfissao = scanner.nextLine();
+
+                    cbo.setCbo(codCbo, novaProfissao);
+                    System.out.println("CBO adicionado/atualizado com sucesso!");
+                    break;
+
+                case "4":
+                    System.out.print("\nInforme o índice do CBO que deseja remover: \n");
+                    for (int i = 0; i < cbo.getListCbo().size(); i++) {
+                        System.out.println(i + " - " + cbo.getListCbo().get(i).getProfissao());
+                    }
+                    String indexStr = scanner.nextLine();
+                    try {
+                        int index = Integer.parseInt(indexStr);
+                        String profissaoRemovida = cbo.removeCbo(index).getProfissao();
+                        if (profissaoRemovida != null) {
+                            System.out.println("CBO removido: " + profissaoRemovida);
+                        } else {
+                            System.out.println("Índice inválido!");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Por favor, digite um número válido!");
+                    }
+                    break;
+
+                case "0":
+                    break;
+
+                default:
+                    System.out.println("\nOpção inválida. Tente novamente! :'(");
+                    break;
+            }
+        } while (!option.equals("0"));
     }
 }
