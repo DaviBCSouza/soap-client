@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.edu.ifam.dad</groupId>
+    <artifactId>UBS-SOAP-Client</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>ubs-id</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <!-- URL do WSDL -->
+                            <wsdlUrls>
+                                <wsdlUrl>http://10.100.86.163:8080/ubs?wsdl</wsdlUrl>
+                            </wsdlUrls>
+                            <!-- Configuração do pacote -->
+                            <packageName>br.ubs.soap</packageName>
+                            <!-- Diretório fora de src -->
+                            <sourceDestDir>webservice</sourceDestDir>
+                            <!-- Manter os arquivos .java gerados -->
+                            <keep>true</keep>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>fuso-id</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <!-- URL do WSDL -->
+                            <wsdlUrls>
+                                <wsdlUrl>http://10.100.34.240:8080/fusohorario?wsdl</wsdlUrl>
+                            </wsdlUrls>
+                            <!-- Configuração do pacote -->
+                            <packageName>br.fuso.soap</packageName>
+                            <!-- Diretório fora de src -->
+                            <sourceDestDir>webservice</sourceDestDir>
+                            <!-- Manter os arquivos .java gerados -->
+                            <keep>true</keep>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cbo-id</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <!-- URL do WSDL -->
+                            <wsdlUrls>
+                                <wsdlUrl>http://10.100.35.11:8080/cbo?wsdl</wsdlUrl>
+                            </wsdlUrls>
+                            <!-- Configuração do pacote -->
+                            <packageName>br.cbo.soap</packageName>
+                            <!-- Diretório fora de src -->
+                            <sourceDestDir>webservice</sourceDestDir>
+                            <!-- Manter os arquivos .java gerados -->
+                            <keep>true</keep>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
