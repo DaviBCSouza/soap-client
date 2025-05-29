@@ -60,6 +60,77 @@ public class SOAPClientUBS {
     }
 
     private static void menuUBS(IUnidadeSaudeService ubs, Scanner scanner) {
+        String option;
+        do {
+            System.out.println("\n----------------------MENU UBS-------------------------");
+            System.out.println("1 - Criar UBS");
+            System.out.println("2 - Listar UBS");
+            System.out.println("3 - Alterar UBS");
+            System.out.println("4 - Deletar UBS");
+            System.out.println("0 - VOLTAR");
+            System.out.println("---------------------------------------------------");
+            System.out.print("Escolha uma opção: ");
+
+            option = scanner.nextLine().trim();
+
+            switch (option) {
+                case "1":
+                    System.out.print("\nDigite o cnes da UBS: ");
+                    String cnes = scanner.nextLine();
+
+                    System.out.print("\nDigite o nome da UBS: ");
+                    String name = scanner.nextLine();
+
+                    System.out.print("\nDigite o bairro da UBS: ");
+                    String bairro = scanner.nextLine();
+
+                    ubs.save(cnes, name, bairro);
+                    break;
+
+                case "2":
+                    System.out.print("\nLista de UBS: \n");
+                    for (int i = 0; i < ubs.getAll().size(); i++) {
+                        System.out.println(i + " - " + ubs.getAll().get(i).getName());
+                    }
+                    break;
+
+                case "3":
+                    System.out.print("\nInforme o índice da UBS que deseja alterar: \n");
+                    for (int i = 0; i < ubs.getAll().size(); i++) {
+                        System.out.println(i + " - " + ubs.getAll().get(i).getName());
+                    }
+                    String updateUBS = scanner.nextLine();
+
+                    System.out.print("\nDigite o cnes da UBS: ");
+                    String newCnes = scanner.nextLine();
+
+                    System.out.print("\nDigite o nome da UBS: ");
+                    String newName = scanner.nextLine();
+
+                    System.out.print("\nDigite o bairro da UBS: ");
+                    String newBairro = scanner.nextLine();
+
+                    ubs.update(Integer.parseInt(updateUBS), newCnes, newName, newBairro);
+                    break;
+
+                case "4":
+                    System.out.print("\nInforme o índice da UBS que deseja deletar: \n");
+                    for (int i = 0; i < ubs.getAll().size(); i++) {
+                        System.out.println(i + " - " + ubs.getAll().get(i).getName());
+                    }
+                    String deleteUbs = scanner.nextLine();
+
+                    ubs.delete(Integer.parseInt(deleteUbs));
+                    break;
+
+                case "0":
+                    break;
+
+                default:
+                    System.out.println("\nOpção inválida. Tente novamente! :'(");
+                    break;
+            }
+        } while (!option.equals("0"));
     }
 
     private static void menuFusoHorario(FusoHorarioService fuso, Scanner scanner) {
