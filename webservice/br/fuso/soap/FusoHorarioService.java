@@ -33,12 +33,12 @@ public interface FusoHorarioService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "addFuso", targetNamespace = "http://soap/", className = "br.fuso.soap.AddFuso")
-    @ResponseWrapper(localName = "addFusoResponse", targetNamespace = "http://soap/", className = "br.fuso.soap.AddFusoResponse")
-    @Action(input = "http://soap/FusoHorarioService/addFusoRequest", output = "http://soap/FusoHorarioService/addFusoResponse")
-    public boolean addFuso(
+    @RequestWrapper(localName = "removeFusoByCNES", targetNamespace = "http://soap/", className = "br.fuso.soap.RemoveFusoByCNES")
+    @ResponseWrapper(localName = "removeFusoByCNESResponse", targetNamespace = "http://soap/", className = "br.fuso.soap.RemoveFusoByCNESResponse")
+    @Action(input = "http://soap/FusoHorarioService/removeFusoByCNESRequest", output = "http://soap/FusoHorarioService/removeFusoByCNESResponse")
+    public boolean removeFusoByCNES(
         @WebParam(name = "arg0", targetNamespace = "")
-        FusoHorario arg0);
+        String arg0);
 
     /**
      * 
@@ -48,12 +48,12 @@ public interface FusoHorarioService {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "removeFusoByCNES", targetNamespace = "http://soap/", className = "br.fuso.soap.RemoveFusoByCNES")
-    @ResponseWrapper(localName = "removeFusoByCNESResponse", targetNamespace = "http://soap/", className = "br.fuso.soap.RemoveFusoByCNESResponse")
-    @Action(input = "http://soap/FusoHorarioService/removeFusoByCNESRequest", output = "http://soap/FusoHorarioService/removeFusoByCNESResponse")
-    public boolean removeFusoByCNES(
+    @RequestWrapper(localName = "addFuso", targetNamespace = "http://soap/", className = "br.fuso.soap.AddFuso")
+    @ResponseWrapper(localName = "addFusoResponse", targetNamespace = "http://soap/", className = "br.fuso.soap.AddFusoResponse")
+    @Action(input = "http://soap/FusoHorarioService/addFusoRequest", output = "http://soap/FusoHorarioService/addFusoResponse")
+    public boolean addFuso(
         @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
+        FusoHorario arg0);
 
     /**
      * 

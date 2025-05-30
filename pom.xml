@@ -29,7 +29,7 @@
                         <configuration>
                             <!-- URL do WSDL -->
                             <wsdlUrls>
-                                <wsdlUrl>http://10.100.86.163:8080/ubs?wsdl</wsdlUrl>
+                                <wsdlUrl>http://10.100.85.116:8080/ubs?wsdl</wsdlUrl>
                             </wsdlUrls>
                             <!-- Configuração do pacote -->
                             <packageName>br.ubs.soap</packageName>
@@ -48,7 +48,7 @@
                         <configuration>
                             <!-- URL do WSDL -->
                             <wsdlUrls>
-                                <wsdlUrl>http://10.100.34.240:8080/fusohorario?wsdl</wsdlUrl>
+                                <wsdlUrl>http://10.100.36.66:8080/fusohorario?wsdl</wsdlUrl>
                             </wsdlUrls>
                             <!-- Configuração do pacote -->
                             <packageName>br.fuso.soap</packageName>
@@ -67,10 +67,29 @@
                         <configuration>
                             <!-- URL do WSDL -->
                             <wsdlUrls>
-                                <wsdlUrl>http://10.100.35.11:8080/cbo?wsdl</wsdlUrl>
+                                <wsdlUrl>http://10.100.36.121:8080/cbo?wsdl</wsdlUrl>
                             </wsdlUrls>
                             <!-- Configuração do pacote -->
                             <packageName>br.cbo.soap</packageName>
+                            <!-- Diretório fora de src -->
+                            <sourceDestDir>webservice</sourceDestDir>
+                            <!-- Manter os arquivos .java gerados -->
+                            <keep>true</keep>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>cidade-id</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <!-- URL do WSDL -->
+                            <wsdlUrls>
+                                <wsdlUrl>http://10.100.36.65:8080/cidades?wsdl</wsdlUrl>
+                            </wsdlUrls>
+                            <!-- Configuração do pacote -->
+                            <packageName>br.cidade.soap</packageName>
                             <!-- Diretório fora de src -->
                             <sourceDestDir>webservice</sourceDestDir>
                             <!-- Manter os arquivos .java gerados -->

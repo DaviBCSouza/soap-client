@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "FusoHorarioImplService", targetNamespace = "http://soap/", wsdlLocation = "http://10.100.34.240:8080/fusohorario?wsdl")
+@WebServiceClient(name = "FusoHorarioImplService", targetNamespace = "http://soap/", wsdlLocation = "http://10.100.36.66:8080/fusohorario?wsdl")
 public class FusoHorarioImplService
     extends Service
 {
@@ -30,7 +30,7 @@ public class FusoHorarioImplService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://10.100.34.240:8080/fusohorario?wsdl");
+            url = new URL("http://10.100.36.66:8080/fusohorario?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

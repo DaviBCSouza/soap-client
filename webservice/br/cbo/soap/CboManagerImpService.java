@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "CboManagerImpService", targetNamespace = "http://cbo/", wsdlLocation = "http://10.100.35.11:8080/cbo?wsdl")
+@WebServiceClient(name = "CboManagerImpService", targetNamespace = "http://cbo/", wsdlLocation = "http://10.100.36.121:8080/cbo?wsdl")
 public class CboManagerImpService
     extends Service
 {
@@ -30,7 +30,7 @@ public class CboManagerImpService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://10.100.35.11:8080/cbo?wsdl");
+            url = new URL("http://10.100.36.121:8080/cbo?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

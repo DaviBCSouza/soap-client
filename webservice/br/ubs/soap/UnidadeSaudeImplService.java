@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "UnidadeSaudeImplService", targetNamespace = "http://soap.ubs.br/", wsdlLocation = "http://10.100.86.163:8080/ubs?wsdl")
+@WebServiceClient(name = "UnidadeSaudeImplService", targetNamespace = "http://soap.ubs.br/", wsdlLocation = "http://10.100.85.116:8080/ubs?wsdl")
 public class UnidadeSaudeImplService
     extends Service
 {
@@ -30,7 +30,7 @@ public class UnidadeSaudeImplService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://10.100.86.163:8080/ubs?wsdl");
+            url = new URL("http://10.100.85.116:8080/ubs?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

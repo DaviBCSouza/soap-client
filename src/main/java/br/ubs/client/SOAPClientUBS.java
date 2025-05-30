@@ -2,6 +2,9 @@ package br.ubs.client;
 
 import br.cbo.soap.CboManagerImpService;
 import br.cbo.soap.CboService;
+import br.cidade.soap.Cidade;
+import br.cidade.soap.CidadeService;
+import br.cidade.soap.CidadeServiceImpService;
 import br.fuso.soap.FusoHorarioImplService;
 import br.fuso.soap.FusoHorario;
 import br.fuso.soap.FusoHorarioService;
@@ -25,6 +28,10 @@ public class SOAPClientUBS {
         CboManagerImpService serviceCbo = new CboManagerImpService();
         CboService cbo = serviceCbo.getCboManagerImpPort();
 
+        //Cidade
+        CidadeServiceImpService serviceCidade = new CidadeServiceImpService();
+        CidadeService cidade = serviceCidade.getCidadeServiceImpPort();
+
         Scanner scanner = new Scanner(System.in);
         String option;
 
@@ -33,6 +40,7 @@ public class SOAPClientUBS {
             System.out.println("1 - Gerenciar UBS");
             System.out.println("2 - Gerenciar Fusos Horários");
             System.out.println("3 - Gerenciar CBOs");
+            System.out.println("3 - Gerenciar Cidades");
             System.out.println("0 - SAIR");
             System.out.println("-------------------------------------------------------------");
             System.out.print("Escolha uma opção: ");
@@ -48,6 +56,9 @@ public class SOAPClientUBS {
                     break;
                 case "3":
                     menuCBO(cbo, scanner);
+                    break;
+                case "4":
+                    menuCidade(cidade, scanner);
                     break;
                 case "0":
                     System.out.println("\nAté a próxima! ^^");
@@ -99,7 +110,7 @@ public class SOAPClientUBS {
                     for (int i = 0; i < ubs.getAll().size(); i++) {
                         System.out.println(i + " - " + ubs.getAll().get(i).getName());
                     }
-                    String updateUBS = scanner.nextLine();
+                    int updateUBS = Integer.parseInt(scanner.nextLine());
 
                     System.out.print("\nDigite o cnes da UBS: ");
                     String newCnes = scanner.nextLine();
@@ -110,7 +121,7 @@ public class SOAPClientUBS {
                     System.out.print("\nDigite o bairro da UBS: ");
                     String newBairro = scanner.nextLine();
 
-                    ubs.update(Integer.parseInt(updateUBS), newCnes, newName, newBairro);
+                    ubs.update(updateUBS, newCnes, newName, newBairro);
                     break;
 
                 case "4":
@@ -118,9 +129,9 @@ public class SOAPClientUBS {
                     for (int i = 0; i < ubs.getAll().size(); i++) {
                         System.out.println(i + " - " + ubs.getAll().get(i).getName());
                     }
-                    String deleteUbs = scanner.nextLine();
+                    int deleteUbs = Integer.parseInt(scanner.nextLine());
 
-                    ubs.delete(Integer.parseInt(deleteUbs));
+                    ubs.delete(deleteUbs);
                     break;
 
                 case "0":
@@ -287,12 +298,131 @@ public class SOAPClientUBS {
                     for (int i = 0; i < cbo.getListCbo().size(); i++) {
                         System.out.println(i + " - " + cbo.getListCbo().get(i).getProfissao());
                     }
-                    String indexStr = scanner.nextLine();
+
                     try {
-                        int index = Integer.parseInt(indexStr);
+                        int index = Integer.parseInt(scanner.nextLine());
                         String profissaoRemovida = cbo.removeCbo(index).getProfissao();
                         if (profissaoRemovida != null) {
                             System.out.println("CBO removido: " + profissaoRemovida);
+                        } else {
+                            System.out.println("Índice inválido!");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Por favor, digite um número válido!");
+                    }
+                    break;
+
+                case "0":
+                    break;
+
+                default:
+                    System.out.println("\nOpção inválida. Tente novamente! :'(");
+                    break;
+            }
+        } while (!option.equals("0"));
+    }
+
+    private static void menuCidade(CidadeService cidadeService, Scanner scanner) {
+        String option;
+        do {
+            System.out.println("\n----------------------MENU CIDADES-------------------------");
+            System.out.println("1 - Adicionar Cidade");
+            System.out.println("2 - Listar Cidades");
+            System.out.println("3 - Buscar Cidade por índice");
+            System.out.println("4 - Atualizar Cidade");
+            System.out.println("5 - Remover Cidade");
+            System.out.println("0 - VOLTAR");
+            System.out.println("--------------------------------------------------------");
+            System.out.print("Escolha uma opção: ");
+
+            option = scanner.nextLine().trim();
+
+            switch (option) {
+                case "1":
+                    System.out.print("Digite o código IBGE: ");
+                    String codigoIbge = scanner.nextLine();
+
+                    System.out.print("\nDigite o nome da cidade: ");
+                    String nome = scanner.nextLine();
+
+                    Cidade novaCidade = new Cidade();
+                    novaCidade.setIbge(codigoIbge);
+                    novaCidade.setNome(nome);
+
+                    cidadeService.insertCidade(novaCidade);
+                    System.out.println("Cidade adicionada com sucesso!");
+                    break;
+
+                case "2":
+                    System.out.println("\nLista de Cidades:");
+                    for (int i = 0; i < cidadeService.getCidades().size(); i++) {
+                        System.out.println(i + " - " + cidadeService.getCidades().get(i).getNome() +
+                                " (IBGE: " + cidadeService.getCidades().get(i).getIbge() + ")");
+                    }
+                    break;
+
+                case "3":
+                    System.out.print("\nDigite o índice da cidade: ");
+                    try {
+                        int index = Integer.parseInt(scanner.nextLine());
+                        if (index >= 0 && index < cidadeService.getCidades().size()) {
+                            Cidade c = cidadeService.getCidade(index);
+                            System.out.println("Cidade encontrada:");
+                            System.out.println("Código IBGE: " + c.getIbge());
+                            System.out.println("Nome: " + c.getNome());
+                        } else {
+                            System.out.println("Índice inválido!");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Por favor, digite um número válido!");
+                    }
+                    break;
+
+                case "4":
+                    System.out.println("\nLista de Cidades disponíveis para atualização:");
+                    for (int i = 0; i < cidadeService.getCidades().size(); i++) {
+                        System.out.println(i + " - " + cidadeService.getCidades().get(i).getNome());
+                    }
+
+                    System.out.print("Digite o índice da cidade a atualizar: ");
+                    try {
+                        int indexUpdate = Integer.parseInt(scanner.nextLine());
+                        if (indexUpdate >= 0 && indexUpdate < cidadeService.getCidades().size()) {
+                            Cidade cidadeAtual = cidadeService.getCidade(indexUpdate);
+
+                            System.out.print("Digite o novo nome (" + cidadeAtual.getNome() + "): ");
+                            String novoNome = scanner.nextLine();
+
+
+                            System.out.print("Digite o novo código IBGE (" + cidadeAtual.getIbge() + "): ");
+                            String novoIbge = scanner.nextLine();
+
+                            Cidade cidadeAtualizada = new Cidade();
+                            cidadeAtualizada.setNome(novoNome.isEmpty() ? cidadeAtual.getNome() : novoNome);
+                            cidadeAtualizada.setIbge(novoIbge.isEmpty() ? cidadeAtual.getIbge() : novoIbge);
+
+                            cidadeService.updateCidade(cidadeAtualizada);
+                            System.out.println("Cidade atualizada com sucesso!");
+                        } else {
+                            System.out.println("Índice inválido!");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Por favor, digite um número válido!");
+                    }
+                    break;
+
+                case "5":
+                    System.out.println("\nLista de Cidades disponíveis para remoção:");
+                    for (int i = 0; i < cidadeService.getCidades().size(); i++) {
+                        System.out.println(i + " - " + cidadeService.getCidades().get(i).getNome());
+                    }
+
+                    System.out.print("Digite o índice da cidade a remover: ");
+                    try {
+                        int indexDelete = Integer.parseInt(scanner.nextLine());
+                        if (indexDelete >= 0 && indexDelete < cidadeService.getCidades().size()) {
+                            cidadeService.deleteCidade(indexDelete);
+                            System.out.println("Cidade removida com sucesso!");
                         } else {
                             System.out.println("Índice inválido!");
                         }
