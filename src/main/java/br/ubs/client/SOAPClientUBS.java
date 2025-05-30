@@ -1,36 +1,25 @@
 package br.ubs.client;
 
-import br.cbo.soap.CboManagerImpService;
 import br.cbo.soap.CboService;
 import br.cidade.soap.Cidade;
 import br.cidade.soap.CidadeService;
-import br.cidade.soap.CidadeServiceImpService;
-import br.fuso.soap.FusoHorarioImplService;
 import br.fuso.soap.FusoHorario;
 import br.fuso.soap.FusoHorarioService;
+import br.mocks.MockCBOService;
+import br.mocks.MockCidadeService;
+import br.mocks.MockFusoHorarioService;
+import br.mocks.MockUnidadeSaudeService;
 import br.ubs.soap.IUnidadeSaudeService;
-import br.ubs.soap.UnidadeSaudeImplService;
 
 import java.util.Scanner;
 
 public class SOAPClientUBS {
     public static void main(String[] args) {
-        // Implements
-        // UBS
-        UnidadeSaudeImplService serviceUbs = new UnidadeSaudeImplService();
-        IUnidadeSaudeService ubs = serviceUbs.getUnidadeSaudeImplPort();
-
-        // Fuso
-        FusoHorarioImplService serviceFuso = new FusoHorarioImplService();
-        FusoHorarioService fuso = serviceFuso.getFusoHorarioImplPort();
-
-        // CBO
-        CboManagerImpService serviceCbo = new CboManagerImpService();
-        CboService cbo = serviceCbo.getCboManagerImpPort();
-
-        //Cidade
-        CidadeServiceImpService serviceCidade = new CidadeServiceImpService();
-        CidadeService cidade = serviceCidade.getCidadeServiceImpPort();
+        // Mocks
+        IUnidadeSaudeService ubs = new MockUnidadeSaudeService();
+        FusoHorarioService fuso = new MockFusoHorarioService();
+        CboService cbo = new MockCBOService();
+        CidadeService cidade = new MockCidadeService();
 
         Scanner scanner = new Scanner(System.in);
         String option;
@@ -40,7 +29,7 @@ public class SOAPClientUBS {
             System.out.println("1 - Gerenciar UBS");
             System.out.println("2 - Gerenciar Fusos Horários");
             System.out.println("3 - Gerenciar CBOs");
-            System.out.println("3 - Gerenciar Cidades");
+            System.out.println("4 - Gerenciar Cidades");
             System.out.println("0 - SAIR");
             System.out.println("-------------------------------------------------------------");
             System.out.print("Escolha uma opção: ");
