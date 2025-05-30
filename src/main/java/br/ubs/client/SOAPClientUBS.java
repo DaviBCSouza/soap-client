@@ -40,7 +40,7 @@ public class SOAPClientUBS {
             System.out.println("1 - Gerenciar UBS");
             System.out.println("2 - Gerenciar Fusos Horários");
             System.out.println("3 - Gerenciar CBOs");
-            System.out.println("3 - Gerenciar Cidades");
+            System.out.println("4 - Gerenciar Cidades");
             System.out.println("0 - SAIR");
             System.out.println("-------------------------------------------------------------");
             System.out.print("Escolha uma opção: ");
